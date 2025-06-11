@@ -28,13 +28,15 @@ reps_sets - int - NOT NULL
 
 
 CREATE TABLE workouts_users (
+  id serial PRIMARY KEY,
  workout_id - PK - NOT NULL
  user_id - PK - NOT NULL
 );
 
 
-CREATE TABLE muscle_images (
+CREATE TABLE images (
  images id - PK - Serial
- name - text - NOT NULL
- image - text - NOT NULL
+ title - text - NOT NULL
+ image_url - text - NOT NULL
+ alt_text - text
 );
