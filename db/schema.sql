@@ -6,32 +6,36 @@ DROP TABLE IF EXISTS muscle_images;
 CREATE TABLE users (
   id serial PRIMARY KEY,
   username text NOT NULL UNIQUE,
-  password text NOT NULL
-  name - text - NN
-  weight - int
-  height - int
-  sex - text 
+  password text NOT NULL,
+  name text NOT NULL,
+  weight integer NOT NULL,
+  height integer NOT NULL,
+  sex text NOT NULL
 );
 
 --thinking of removing video if <iframe> can embed in frontend
 CREATE TABLE workouts (
-workout_id - PK - SERIAL
-name - TEXT - NN
-muscle_group - text NN
-description - text - NN
-equipment - text - NN
-video - URL - NN
-reps_sets - int - NN
+workout_id SERIAL PRIMARY KEY, 
+name text NOT NULL, 
+muscle_group text NOT NULL,
+description text NOT NULL,
+equipment text NOT NULL, -- may need to belong in description because
+video URL NOT NULL,
+reps_sets integer NOT NULL -- may need to  belong in description
 );
 
 CREATE TABLE workouts_users (
-  workout_id - PK - NN
-  user_id - PK - NN
+  workout_id integer NOT NULL,
+  user_id integer NOT NULL,
+  PRIMARY KEY (workout_id, user_id),
+  FOREIGN KEY (workout_id) REFERENCES workouts(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE muscle_images (
-  images id - PK - Serial
-  name - text - NN
-  image - text - NN
+  images_id SERIAL PRIMARY KEY,
+  workout_id integer NOT NULL,
+  name text NOT NULL,
+  image NOT NULL
 );
 
