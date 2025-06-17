@@ -20,8 +20,8 @@ router.use(requireUser);
 // insures the request body has the requirerd fields
 // creates a workout associated witht the current user
 
- .post(requireBody(["name", "muscle_group", "description", "equipment", "video", "reps_sets"]), async (req, res) => {
-    const { name, muscle_group, description, equipment, video, reps_sets } = req.body;
+ .post(requireBody(["name", "muscle_group", "description", "video"]), async (req, res) => {
+    const { name, muscle_group, description, video } = req.body;
     const workout = await createWorkout(name, muscle_group, description, equipment, video, reps_sets, req.user.id);
     res.status(201).send(workout);
  });

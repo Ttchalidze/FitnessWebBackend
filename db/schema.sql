@@ -19,9 +19,7 @@ workout_id SERIAL PRIMARY KEY,
 name text NOT NULL, 
 muscle_group text NOT NULL,
 description text NOT NULL,
-equipment text NOT NULL, -- may need to belong in description because
 video URL NOT NULL,
-reps_sets integer NOT NULL -- may need to  belong in description
 );
 
 CREATE TABLE workouts_users (

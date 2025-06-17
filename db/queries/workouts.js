@@ -3,17 +3,17 @@ import db from "db/client";
 
 
 
-export async function createWorkout(workout_id, name, muscle_group, description, equipment, video, reps_sets){
+export async function createWorkout(workout_id, name, muscle_group, description, video,){
    const sql = `
    INSERT INTO orders
-   (workout_id, name, muscle_group, description, equipment, video, reps_sets)
+   (workout_id, name, muscle_group, description, video)
    VALUES
-   ($1, $2, $3, $$, $5, $6, $7)
+   ($1, $2, $3, $$, $5)
    RETURNING *
    `;
    const {
        rows: [workout]
-   } = await db.query(sql, [workout_id, name, muscle_group, description, equipment, video, reps_sets]);
+   } = await db.query(sql, [workout_id, name, muscle_group, description, video]);
    return workout;
 }
 
