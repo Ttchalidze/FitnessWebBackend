@@ -1,5 +1,4 @@
 import pg from "pg";
-
 const options = { connectionString: process.env.DATABASE_URL };
 
 // Need SSL for external database connection
