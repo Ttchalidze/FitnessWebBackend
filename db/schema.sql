@@ -1,58 +1,42 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS workouts_users;
-DROP TABLE IF EXISTS muscle_images;
+DROP TABLE IF EXISTS user_workouts;
+/*DROP TABLE IF EXISTS muscle_images;*/
 
 
 CREATE TABLE users (
- id serial PRIMARY KEY,
- username text NOT NULL UNIQUE,
- password text NOT NULL
- name - text - NOT NULL
- weight - int
- height - int
- sex - text
+ id SERIAL PRIMARY KEY,
+ name TEXT NOT NULL,
+ lastname TEXT NOT NULL,
+ email TEXT NOT NULL,
+ password TEXT NOT NULL,
+ age integer NOT NULL 
 );
 
-
---thinking of removing video if <iframe> can embed in frontend
 CREATE TABLE workouts (
-workout_id - PK - SERIAL
-name - TEXT - NOT NULL
-muscle_group - text NOT NULL
-description - text - NOT NULL
-equipment - text - NOT NULL
-video - URL - NOT NULL
-reps_sets - int - NOT NULL
+ id SERIAL PRIMARY KEY,
+ name TEXT NOT NULL,
+ description TEXT NOT NULL,
+ video TEXT NOT NULL
 );
 
-
-CREATE TABLE workouts_users (
-  id serial PRIMARY KEY,
-
-);
-
---thinking of removing video if <iframe> can embed in frontend
-CREATE TABLE workouts (
-workout_id SERIAL PRIMARY KEY, 
-name text NOT NULL, 
-muscle_group text NOT NULL,
-description text NOT NULL,
-video URL NOT NULL,
-);
-
-CREATE TABLE workouts_users (
+CREATE TABLE user_workouts (
   workout_id integer NOT NULL,
   user_id integer NOT NULL,
-  PRIMARY KEY (workout_id, user_id),
-  FOREIGN KEY (workout_id) REFERENCES workouts(id),
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  CONSTRAINT fk_workout
+    FOREIGN KEY (workout_id)
+    REFERENCES workouts(id),
+  CONSTRAINT fk_user
+    FOREIGN KEY (user_id) 
+    REFERENCES users(id)
+    ON DELETE CASCADE
 );
 
-CREATE TABLE muscle_images (
-  images_id SERIAL PRIMARY KEY,
+/*CREATE TABLE muscle_images (
+  img_id SERIAL PRIMARY KEY,
   workout_id integer NOT NULL,
-  name text NOT NULL,
-  image NOT NULL
-);
+  name TEXT NOT NULL,
+  img_url TEXT  NOT NULL
+);*/
 
+ 
