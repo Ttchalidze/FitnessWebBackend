@@ -14,7 +14,7 @@ export async function createWorkout(name, description, video) {
   return workout;
 }
 
-export async function getWorkoutByUserId(id) {
+export async function getWorkoutsByUserId(userId) {
   const sql = `
    SELECT *
    FROM workouts
@@ -22,11 +22,11 @@ export async function getWorkoutByUserId(id) {
    `;
   const {
     rows: [workout],
-  } = await db.query(sql, [id]);
+  } = await db.query(sql, [userId]);
   return workout;
 }
 
-export async function getWorkoutById(id) {
+export async function getWorkoutsById(id) {
   const sql = `
 SELECT *
 FROM workouts

@@ -41,7 +41,7 @@ async function seed() {
     },
   ];
 
-  for (let i = 1; i < workouts.length; i++) {
+  for (let i = 0; i < workouts.length; i++) {
     await createWorkout(
       workouts[i].name,
       workouts[i].description,
