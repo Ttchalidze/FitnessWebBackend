@@ -1,8 +1,8 @@
-import db from "db/client";
+import db from "#db/client";
 
 export async function createWorkout(name, description, video) {
   const sql = `
-   INSERT INTO orders
+   INSERT INTO workouts
    ( name,  description, video)
    VALUES
    ($1, $2, $3)
@@ -10,7 +10,7 @@ export async function createWorkout(name, description, video) {
    `;
   const {
     rows: [workout],
-  } = await db.query(sql, [, name, , description, video]);
+  } = await db.query(sql, [name, description, video]);
   return workout;
 }
 
@@ -29,7 +29,7 @@ export async function getWorkoutByUserId(id) {
 export async function getWorkoutById(id) {
   const sql = `
 SELECT *
-FROM orders
+FROM workouts
 WHERE id = $1
 `;
   const {
