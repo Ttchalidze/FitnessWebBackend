@@ -1,6 +1,6 @@
 import db from "#db/client";
 import { createUser } from "#db/queries/users";
-import { createWorkout } from "./queries/workouts";
+import { createWorkout } from "#db/queries/workouts";
 
 await db.connect();
 await seed();
@@ -40,6 +40,7 @@ async function seed() {
       url: "https://www.youtube.com/watch?v=tn2vBcwjdm0",
     },
   ];
+
   for (let i = 1; i < workouts.length; i++) {
     await createWorkout(
       workouts[i].name,
@@ -48,5 +49,5 @@ async function seed() {
     );
   }
 
-  const user = await createUser("name", "lastname", "email", "password", "age");
+  const user = await createUser("name", "lastname", "email", "password", "2");
 }
