@@ -2,44 +2,42 @@ import express from "express";
 const router = express.Router();
 export default router;
 
-import { createWorkout, getWorkoutById, getWorkoutByUserId } from "db/queries/workouts";
-// import { createUserWorkout } from "db/queries/workouts_user";
-import requireUser from "middleware/requireUser";
-import requireBody from "middleware/requireBody";
+import { createWorkout } from "#db/queries/workouts";
+import { getWorkoutsById } from "#db/queries/workouts";
+import requireBody from "#middleware/requireBody";
+import { getWorkoutsByUserId } from "#db/queries/workouts";
 
-router.use(requireUser); 
- 
-// returns all workouts belonging to the currently logged in user 
-
- router 
- .route("/")
- .get(async (req, res) => {
-    const workouts = await getWorkoutByUserId(req.user.id);
+router
+  .route("/")
+  .get(async (req, res) => {
+    const workouts = await getWorkoutsByUserId(req.user.id);
     res.send(workouts);
- })
-// insures the request body has the requirerd fields
-// creates a workout associated witht the current user
+  })
 
- .post(requireBody(["name", "description", "video"]), async (req, res) => {
+  .post(requireBody(["name", "description", "video"]), async (req, res) => {
     const { name, description, video } = req.body;
-    const workout = await createWorkout(name, description, video, req.user.id);
+    const workout = await createWorkout({
+      userId: req.user.id,
+      name,
+      description,
+      video,
+    });
     res.status(201).send(workout);
- });
- // runs for any route with :id in the path
- // verifies if it exists and belongs to the user
+  });
 
- router.param("id", async (req, res, next, id) => {
-    const workout = await getWorkoutById(id);
-    if (!workout) return res.status(404).send("workout not found");
-    if (workout.user_id !== req.user.id) return res.status(403).send("you are unauthorized to access this workout");
-    req.workout = workout;
-    next();
- });
 
- router
- .route("/:id")
-.get(async (req, res) => {
-    res.send(req.workout)
+router.route("/").get(async (req, res) => {
+  const workouts = await getWorkoutsByUserId(req.user.id);
+  res.send(workouts);
 });
 
-
+router.param("id", async (req, res, next, id) => {
+  const workout = await getWorkoutsById(id);
+  console.log(workout);
+  if (!workout) return res.status(404).send("workout not found");
+  req.workout = workout;
+  next();
+});
+router.route("/:id").get(async (req, res) => {
+  res.send(req.workout);
+});
