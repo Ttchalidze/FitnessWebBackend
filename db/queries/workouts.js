@@ -1,4 +1,4 @@
-import db from "#db/client";
+import db from "db/client";
 
 export async function createWorkout(name, description, video) {
   const sql = `
