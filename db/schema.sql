@@ -1,6 +1,6 @@
+DROP TABLE IF EXISTS user_workouts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS workouts;
-DROP TABLE IF EXISTS user_workouts;
 /*DROP TABLE IF EXISTS muscle_images;*/
 
 
