@@ -1,10 +1,10 @@
 import db from "#db/client";
 import bcrypt from "bcrypt";
 
-export async function createUser(name, lastname, email, password, age) {
+export async function createUser(firstName, lastName, email, password, age) {
   const sql = `
   INSERT INTO users
-    (name, lastname, email, password, age)
+    (firstName, lastName, email, password, age)
   VALUES
     ($1, $2, $3, $4, $5)
   RETURNING *
@@ -12,8 +12,18 @@ export async function createUser(name, lastname, email, password, age) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const {
     rows: [user],
-  } = await db.query(sql, [name, lastname, email, hashedPassword, age]);
+  } = await db.query(sql, [firstName, lastName, email, hashedPassword, age]);
+  console.log(user);
   return user;
+}
+
+export async function getUsers() {
+  const sql = `
+  SELECT id, firstname, lastname. email, age FROM users`;
+  const {
+    rows: [users],
+  } = await db.query(sql);
+  return users;
 }
 
 export async function getUserByEmailAndPassword(email, password) {
@@ -44,5 +54,3 @@ export async function getUserById(id) {
   } = await db.query(sql, [id]);
   return user;
 }
-// do we need to add 'getUserByName' function if we made 'name'
-// column NN?

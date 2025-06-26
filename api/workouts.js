@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 export default router;
 
-import { createWorkout } from "#db/queries/workouts";
+import { createWorkout, getAllWorkouts } from "#db/queries/workouts";
 import { getWorkoutsById } from "#db/queries/workouts";
 import requireBody from "#middleware/requireBody";
 import { getWorkoutsByUserId } from "#db/queries/workouts";
@@ -10,14 +10,13 @@ import { getWorkoutsByUserId } from "#db/queries/workouts";
 router
   .route("/")
   .get(async (req, res) => {
-    const workouts = await getWorkoutsByUserId(req.user.id);
+    const workouts = await getAllWorkouts();
     res.send(workouts);
   })
 
   .post(requireBody(["name", "description", "video"]), async (req, res) => {
     const { name, description, video } = req.body;
     const workout = await createWorkout({
-      userId: req.user.id,
       name,
       description,
       video,

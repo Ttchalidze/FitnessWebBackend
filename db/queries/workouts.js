@@ -1,5 +1,13 @@
-import db from "db/client";
+import db from "#db/client";
 
+export async function getAllWorkouts() {
+  const sql = `
+   SELECT *
+   FROM workouts
+   `;
+  const { rows } = await db.query(sql);
+  return rows;
+}
 export async function createWorkout(name, description, video) {
   const sql = `
    INSERT INTO workouts
