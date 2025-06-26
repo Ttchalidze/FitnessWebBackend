@@ -13,17 +13,25 @@ export async function createUser(firstName, lastName, email, password, age) {
   const {
     rows: [user],
   } = await db.query(sql, [firstName, lastName, email, hashedPassword, age]);
-  console.log(user);
   return user;
 }
 
 export async function getUsers() {
   const sql = `
-  SELECT id, firstname, lastname. email, age FROM users`;
+  SELECT id, firstname, lastname, email, age FROM users`;
   const {
     rows: [users],
   } = await db.query(sql);
   return users;
+}
+export async function updateUser(id, firstName, lastName, email, age) {
+  const sql = `UPDATE users 
+  SSET firstName = $2, lastName = $3, email = $4, age = $5
+  WHERE id = $1
+  RETURNING *`;
+  const {
+    rows: [user],
+  } = await db.query(sql, [id, firstName, lastName, email, age]);
 }
 
 export async function getUserByEmailAndPassword(email, password) {
@@ -36,7 +44,6 @@ export async function getUserByEmailAndPassword(email, password) {
     rows: [user],
   } = await db.query(sql, [email]);
   if (!user) return null;
-
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) return null;
 
