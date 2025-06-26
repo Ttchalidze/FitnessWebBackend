@@ -32,11 +32,5 @@ CREATE TABLE user_workouts (
     ON DELETE CASCADE
 );
 
-/*CREATE TABLE muscle_images (
-  img_id SERIAL PRIMARY KEY,
-  workout_id integer NOT NULL,
-  name TEXT NOT NULL,
-  img_url TEXT  NOT NULL
-);*/
 
  

@@ -24,6 +24,7 @@ router
     res.status(201).send(workout);
   });
 
+
 router.route("/").get(async (req, res) => {
   const workouts = await getWorkoutsByUserId(req.user.id);
   res.send(workouts);
@@ -36,7 +37,6 @@ router.param("id", async (req, res, next, id) => {
   req.workout = workout;
   next();
 });
-
 router.route("/:id").get(async (req, res) => {
   res.send(req.workout);
 });
