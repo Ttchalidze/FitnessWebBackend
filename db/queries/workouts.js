@@ -22,18 +22,6 @@ export async function createWorkout(name, description, video) {
   return workout;
 }
 
-export async function getWorkoutsByUserId(userId) {
-  const sql = `
-   SELECT *
-   FROM workouts
-   WHERE user_id = $1
-   `;
-  const {
-    rows: [workout],
-  } = await db.query(sql, [userId]);
-  return workout;
-}
-
 export async function getWorkoutsById(id) {
   const sql = `
 SELECT *

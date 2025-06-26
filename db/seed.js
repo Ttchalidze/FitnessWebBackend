@@ -49,5 +49,11 @@ async function seed() {
     );
   }
 
-  const user = await createUser("name", "lastname", "email", "password", 5);
+  const user = await createUser(
+    "firstname",
+    "lastname",
+    "email",
+    "password",
+    5
+  );
 }
