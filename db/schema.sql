@@ -6,8 +6,8 @@ DROP TABLE IF EXISTS workouts;
 
 CREATE TABLE users (
  id SERIAL PRIMARY KEY,
- name TEXT NOT NULL,
- lastname TEXT NOT NULL,
+ firstName TEXT NOT NULL,
+ lastName TEXT NOT NULL,
  email TEXT NOT NULL,
  password TEXT NOT NULL,
  age integer NOT NULL 
