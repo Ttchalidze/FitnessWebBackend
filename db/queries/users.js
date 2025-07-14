@@ -26,7 +26,7 @@ export async function getUsers() {
 }
 export async function updateUser(id, firstName, lastName, email, age) {
   const sql = `UPDATE users 
-  SSET firstName = $2, lastName = $3, email = $4, age = $5
+  SET firstName = $2, lastName = $3, email = $4, age = $5
   WHERE id = $1
   RETURNING *`;
   const {
